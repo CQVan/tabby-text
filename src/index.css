@@ -51,6 +51,6 @@ code {
   .editor-field{
     @apply resize-none bg-gray-700 outline-none grow h-screen
     p-4
-    text-white font-mono
+    text-white font-mono font-semibold
   }
 }
