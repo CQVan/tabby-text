@@ -1,4 +1,5 @@
 import { readTextFile, writeTextFile } from '@tauri-apps/api/fs';
+import {appWindow} from '@tauri-apps/api/window'
 import './App.css';
 import Sidebar from './components/Sidebar';
 import { useEffect, useState } from 'react';
@@ -20,7 +21,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
     };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cur_file, text_value]);
 
   
@@ -34,16 +35,19 @@ function App() {
   }
 
   async function onFileSelect(file : string, dir : string){
-    const new_file = dir + '\\' +file
-
-    setCurFile(new_file);
-    setText(await readTextFile(new_file))
+    const selected_file = dir + '\\' +file
+    appWindow.setTitle("Tabby Text (" + file + ")");
+    setCurFile(selected_file);
+    setText(await readTextFile(selected_file))
   }
 
   return (
     <div className='flex flex-row' >
      
-      <Sidebar onFileSelect={(f: string, dir: string) => {onFileSelect(f, dir)}} onSave={onSave}/>
+      <Sidebar 
+        onFileSelect={(f: string, dir: string) => {onFileSelect(f, dir)}} 
+        onSave={onSave}
+      />
 
       <textarea className='editor-field' value={text_value} onChange={(e) => {setText(e.target.value)}} />
 

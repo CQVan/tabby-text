@@ -5,9 +5,9 @@ import folder_open from '../assets/folder-open.svg'
 import floppy_disk from '../assets/floppy-disk.svg'
 import plus_solid from '../assets/plus-solid.svg'
 
-import { open } from '@tauri-apps/api/dialog';
-import {readDir} from '@tauri-apps/api/fs'
-import { useState } from "react";
+import { open, save } from '@tauri-apps/api/dialog';
+import {readDir, writeTextFile} from '@tauri-apps/api/fs'
+import { useEffect, useState } from "react";
 
 interface Props{
     onFileSelect : Function
@@ -21,7 +21,6 @@ function Sidebar({onFileSelect, onSave} : Props){
 
     async function HandleDirectoryChange(){
         try {
-            console.log("thing")
             const selectedPath = await open({
                 directory: true,
                 multiple: false,
@@ -40,11 +39,36 @@ function Sidebar({onFileSelect, onSave} : Props){
         }
     }
 
+    async function onNew(){
+        const new_file_path = await save({
+            filters:[{
+                name : 'new file',
+                extensions : ['txt', 'json', 'yml', 'md']
+            }]
+        }) as string
+
+        await writeTextFile(new_file_path, '');
+
+        const split_path = new_file_path.split('\\')
+        split_path.pop();
+
+        let new_dir : string = '';
+
+        split_path.forEach(folder => {
+            new_dir += folder + "\\"
+        });
+
+        setCurDir(new_dir)
+
+        const files : string[] = (await readDir(new_dir)).map(entry => entry.name).filter(file => file?.indexOf(".") !== -1) as string[]
+        setFileList(files);
+    }
+
     return (
         <div className="sidebar">
             <div className="m-4 mb-2 flex flex-row flex-shrink justify-center gap-2 h-16">
                 <FunctionButton src={floppy_disk} alt="Save" onClick={() => {onSave()}} />
-                <FunctionButton src={plus_solid} alt="New" />
+                <FunctionButton src={plus_solid} alt="New" onClick={() => {onNew()}} />
                 <FunctionButton src={folder_open} alt="Open" onClick={HandleDirectoryChange} />
             </div>
             

@@ -30,7 +30,7 @@ code {
   }
 
   .directory-label{
-    @apply font-mono font-bold text-white text-center truncate mt-1 pb-1 px-3 text-lg border-b border-white/75 select-none  line-clamp-1;
+    @apply font-mono font-bold w-full text-white text-center mt-1 pb-1 px-3 text-base border-b border-white/75 select-none overflow-hidden text-ellipsis;
   }
 
   .file-select{
