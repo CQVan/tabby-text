@@ -30,18 +30,18 @@ code {
   }
 
   .directory-label{
-    @apply font-mono font-bold text-white text-center mt-1 pb-1 text-lg border-b border-white/75 select-none;
+    @apply font-mono font-bold text-white text-center truncate mt-1 pb-1 px-3 text-lg border-b border-white/75 select-none  line-clamp-1;
   }
 
   .file-select{
-    @apply font-mono font-semibold text-white text-left text-sm select-none
-    pl-3 pr-4 p-1 w-full 
+    @apply font-mono font-semibold text-white text-left text-xs select-none
+    pl-3 pr-4 p-1 w-full
     hover:bg-gray-500 active:bg-gray-400
     transition-all duration-75 ease-in-out;
   }
 
   .sidebar{
-    @apply h-screen m-0 flex flex-col bg-gray-800;
+    @apply h-screen w-1/4 m-0 flex flex-col bg-gray-800;
   }
 
   .sidebar-function-button{
@@ -51,6 +51,10 @@ code {
   .editor-field{
     @apply resize-none bg-gray-700 outline-none grow h-screen
     p-4
-    text-white font-mono font-semibold
+    text-white font-mono font-semibold;
+  }
+
+  .function-select-tooltip{
+    @apply h-min w-min p-1 transition-all duration-1000 ease-in-out;
   }
 }
