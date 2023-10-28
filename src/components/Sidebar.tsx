@@ -7,7 +7,7 @@ import plus_solid from '../assets/plus-solid.svg'
 
 import { open, save } from '@tauri-apps/api/dialog';
 import {readDir, writeTextFile} from '@tauri-apps/api/fs'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props{
     onFileSelect : Function
