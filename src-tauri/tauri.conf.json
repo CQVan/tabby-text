@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "CI=false yarn run build",
+    "beforeBuildCommand": "yarn run build",
     "beforeDevCommand": "yarn cross-env BROWSER=none yarn start",
     "devPath": "http://localhost:3000",
     "distDir": "../build"
@@ -72,7 +72,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "TextEditor",
+      "category": "Utility",
       "copyright": "",
       "deb": {
         "depends": []
